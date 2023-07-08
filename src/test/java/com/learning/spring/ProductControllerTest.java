@@ -24,16 +24,16 @@ public class ProductControllerTest {
 
     @Test
     public void getProductTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/product").accept(MediaType.APPLICATION_JSON)).
+        mockMvc.perform(MockMvcRequestBuilders.get("/product/sample").accept(MediaType.APPLICATION_JSON)).
                 andExpect(status().isOk()).
-                andExpect(jsonPath("$.productName", is("Stock")));
+                andExpect(jsonPath("$.name", is("Stock")));
     }
 
     @Test
     public void getProductByNameTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/product?name=Cerevita")).
+        mockMvc.perform(MockMvcRequestBuilders.get("/product/sample?name=Cerevita")).
                 andExpect(status().isOk()).
-                andExpect(jsonPath("productPrice", is(equalTo(12)))).
-                andExpect(jsonPath("productName", is(equalTo("Cerevita"))));
+                andExpect(jsonPath("price", is(equalTo(155)))).
+                andExpect(jsonPath("name", is(equalTo("Cerevita"))));
     }
 }
