@@ -1,4 +1,4 @@
-package com.learning.spring;
+package com.tuck.shop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

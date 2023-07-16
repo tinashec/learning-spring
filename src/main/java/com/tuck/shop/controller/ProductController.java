@@ -1,8 +1,9 @@
-package com.learning.spring.controller;
+package com.tuck.shop.controller;
 
-import com.learning.spring.entity.Product;
-import com.learning.spring.repository.ProductRepository;
+import com.tuck.shop.entity.Product;
+import com.tuck.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -24,11 +25,11 @@ public class ProductController {
     }
 
     @PostMapping (path = "/add")
-    public @ResponseBody String addProduct(@RequestParam String name,
+    @ResponseStatus (HttpStatus.CREATED)
+    public @ResponseBody Product addProduct(@RequestParam String name,
                                           @RequestParam String price){
         Product product = new Product(name, new BigDecimal(price));
-        productRepository.save(product);
-        return "Saved ".concat(name).concat(" Price: ").concat(price);
+        return productRepository.save(product);
     }
 
     @GetMapping (path = "/all")

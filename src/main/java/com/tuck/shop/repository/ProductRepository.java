@@ -1,6 +1,6 @@
-package com.learning.spring.repository;
+package com.tuck.shop.repository;
 
-import com.learning.spring.entity.Product;
+import com.tuck.shop.entity.Product;
 import org.springframework.data.repository.CrudRepository;
 
 /**

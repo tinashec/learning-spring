@@ -7,6 +7,6 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.1.0)
 
-2023-06-21T23:33:53.387+02:00  INFO 137722 --- [           main] com.learning.spring.Application          : Starting Application v0.0.1-SNAPSHOT using Java 17.0.7 with PID 137722 (/home/tinashe/Downloads/spring/build/libs/spring-0.0.1-SNAPSHOT.jar started by tinashe in /home/tinashe/Downloads/spring)
-2023-06-21T23:33:53.389+02:00  INFO 137722 --- [           main] com.learning.spring.Application          : No active profile set, falling back to 1 default profile: "default"
-2023-06-21T23:33:53.699+02:00  INFO 137722 --- [           main] com.learning.spring.Application          : Started Application in 0.507 seconds (process running for 0.711)
+2023-06-21T23:33:53.387+02:00  INFO 137722 --- [           main] Application          : Starting Application v0.0.1-SNAPSHOT using Java 17.0.7 with PID 137722 (/home/tinashe/Downloads/spring/build/libs/spring-0.0.1-SNAPSHOT.jar started by tinashe in /home/tinashe/Downloads/spring)
+2023-06-21T23:33:53.389+02:00  INFO 137722 --- [           main] Application          : No active profile set, falling back to 1 default profile: "default"
+2023-06-21T23:33:53.699+02:00  INFO 137722 --- [           main] Application          : Started Application in 0.507 seconds (process running for 0.711)

@@ -1,4 +1,4 @@
-package com.learning.spring.entity;
+package com.tuck.shop.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class Product {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
@@ -26,6 +26,10 @@ public class Product {
     }
 
     public Product(){}
+
+    public Integer getId(){
+        return this.id;
+    }
 
     public void setName(String name){
         this.name = name;
