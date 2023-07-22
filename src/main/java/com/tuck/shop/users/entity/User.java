@@ -20,4 +20,14 @@ public class User {
 
     @Nonnull @Column(unique = true)
     private String phoneNumber;
+
+    public User(){}
+
+    public User(Integer id, String name, String lastName, String password, String phoneNumber){
+        this.id = id;
+        this.firstName = name;
+        this.lastName = lastName;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+    }
 }
