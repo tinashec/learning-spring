@@ -1,6 +1,6 @@
 package com.tuck.shop.users;
 
-import com.tuck.shop.users.entity.User;
+import com.tuck.shop.users.entity.Users;
 import com.tuck.shop.users.repository.UserRepository;
 import com.tuck.shop.users.service.UserRegistrationService;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
  * @author Tinashe on 22/7/2023
  */
 @SpringBootTest
-public class UserServiceTest {
+public class UsersServiceTest {
 
     @Mock
     private UserRepository userRepository;
@@ -28,13 +28,16 @@ public class UserServiceTest {
 
     @Test
     public void useRegistrationReturnsUserTest(){
-        when(userRepository.save(any(User.class))).thenReturn(new User());
 
-        User user = User.builder().
+        Users user = Users.builder().
                 firstName("Test").
-                lastName("User").
+                lastName("Users").
+                phoneNumber("123456").
                 build();
-        User registeredUser = userRegistrationService.registerUser(user);
+
+        when(userRepository.save(any(Users.class))).thenReturn(user);
+
+        Users registeredUser = userRegistrationService.registerUser(user);
         assertThat(registeredUser.getFirstName(), is(equalTo(user.getFirstName())));
     }
 }

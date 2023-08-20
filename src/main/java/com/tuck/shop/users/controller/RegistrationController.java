@@ -1,6 +1,6 @@
 package com.tuck.shop.users.controller;
 
-import com.tuck.shop.users.entity.User;
+import com.tuck.shop.users.entity.Users;
 import com.tuck.shop.users.service.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class RegistrationController {
 
     @PostMapping (path = "/register")
     @ResponseStatus (HttpStatus.CREATED)
-    public @ResponseBody User registerUser(@RequestBody User newUser){
+    public @ResponseBody Users registerUser(@RequestBody Users newUser){
         return userRegistrationService.registerUser(newUser);
     }
 }
