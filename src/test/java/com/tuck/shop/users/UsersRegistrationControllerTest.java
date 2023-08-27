@@ -37,6 +37,7 @@ public class UsersRegistrationControllerTest {
                 firstName("New").
                 lastName("NoDB").
                 phoneNumber("999912").
+                password("1234").
                 build();
 
         when(registrationController.registerUser(testUser)).thenReturn(testUser);

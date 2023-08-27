@@ -22,9 +22,12 @@ public class Users {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String firstName, lastName, password;
+    private String firstName, lastName;
 
-    @Nonnull @Column(unique = true)
+    @Nonnull @Column(nullable = false)
+    private String password;
+
+    @Nonnull @Column(unique = true, nullable = false)
     private String phoneNumber;
 
     @Column (updatable = false)

@@ -23,11 +23,19 @@ public class UsersRepositoryTests {
     @Test
     public void saveUserTest(){
 
+        // given, arrange the data
         Users testUser = Users.builder().
                 firstName("Test").
+                password("1234").
+                phoneNumber("123456").
                 build();
+
+        // when, act on the data
         entityManager.persistAndFlush(testUser);
-        Users savedUser = userRepository.findByFirstName(testUser.getFirstName());
+        Users savedUser = userRepository.findByPhoneNumber(testUser.getPhoneNumber());
+
+        // then, assert the result of the action
         assert(savedUser.getFirstName().equals(testUser.getFirstName()));
+        assert(savedUser.getPhoneNumber().equals(testUser.getPhoneNumber()));
     }
 }
