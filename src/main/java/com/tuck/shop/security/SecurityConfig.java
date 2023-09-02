@@ -22,6 +22,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.cors(AbstractHttpConfigurer::disable);
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
+
+        httpSecurity.authorizeHttpRequests(authorise -> authorise.
+                anyRequest().permitAll());
+
+//        httpSecurity.addFilter(new JwtAuthenticationFilter(authenticationManager));
+
         return httpSecurity.build();
     }
 }

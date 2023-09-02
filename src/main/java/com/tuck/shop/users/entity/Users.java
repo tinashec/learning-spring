@@ -1,5 +1,6 @@
 package com.tuck.shop.users.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.tuck.shop.utils.CustomDateSerieliser;
 import jakarta.annotation.Nonnull;
@@ -25,6 +26,7 @@ public class Users {
     private String firstName, lastName;
 
     @Nonnull @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @Nonnull @Column(unique = true, nullable = false)

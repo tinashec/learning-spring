@@ -19,3 +19,6 @@ ddl-auto: create-drop
 test:
 database_2:
 replace: none
+server:
+  error:
+    include-stacktrace: NEVER
