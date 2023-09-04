@@ -12,5 +12,4 @@ import lombok.Setter;
 public class LoginDetailsDto {
     private String phoneNumber;
     private String password;
-
 }

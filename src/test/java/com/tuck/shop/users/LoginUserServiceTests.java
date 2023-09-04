@@ -30,22 +30,24 @@ public class LoginUserServiceTests {
     @Test
     public void loginUserTest(){
 
+        String number = "+263774666249";
+
         Users user = Users.builder().
                 firstName("Test").
                 lastName("Tester").
-                phoneNumber("+26377466").
+                phoneNumber(number).
                 password(passwordEncoder.encode("1111")).           // the stored password in the DB is hashed
                 build();
 
         // mock the repository, otherwise you'll need to know the user stored in the DB and their password
-        when(userRepository.findByPhoneNumber("+26377466")).thenReturn(user);
+        when(userRepository.findByPhoneNumber(number)).thenReturn(user);
 
-        Users validUser = userLoginService.getUserByPhone("+26377466");
-        boolean isLoggedIn = userLoginService.loginUser(validUser, "+26377466", "1111");
+        Users validUser = userLoginService.getUserByPhone(number);
+        boolean isLoggedIn = userLoginService.loginUser(validUser, number, "1111");
         assertThat("User logged in successfully.", isLoggedIn);
 
         // pass in an invalid password or phone number
-        isLoggedIn = userLoginService.loginUser(validUser, "+26377466", "2222");
+        isLoggedIn = userLoginService.loginUser(validUser, number, "2222");
         assertThat("User is not logged in.", !isLoggedIn);
     }
 }
