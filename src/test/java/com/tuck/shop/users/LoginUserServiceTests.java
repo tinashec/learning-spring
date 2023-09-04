@@ -37,6 +37,7 @@ public class LoginUserServiceTests {
                 password(passwordEncoder.encode("1111")).           // the stored password in the DB is hashed
                 build();
 
+        // mock the repository, otherwise you'll need to know the user stored in the DB and their password
         when(userRepository.findByPhoneNumber("+26377466")).thenReturn(user);
 
         Users validUser = userLoginService.getUserByPhone("+26377466");

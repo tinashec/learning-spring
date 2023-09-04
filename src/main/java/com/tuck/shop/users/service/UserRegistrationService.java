@@ -6,8 +6,10 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import com.tuck.shop.users.entity.Users;
 import com.tuck.shop.users.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -27,11 +29,10 @@ public class UserRegistrationService {
 
     public Users registerUser(Users user){
         if (user.getPhoneNumber() == null || user.getPhoneNumber().isEmpty()){
-            throw new IllegalArgumentException("Phone number cannot be empty.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Phone number/password cannot be empty.");
         }
         if (isPhoneExists(user.getPhoneNumber())){
-            // ToDo: have a custom exception that returns the message and a 404 error instead of kuputika like below
-            throw new IllegalArgumentException("Phone number already exists");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Phone number already exists");
         }
         PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
         Phonenumber.PhoneNumber zwNumber;
@@ -46,7 +47,7 @@ public class UserRegistrationService {
         } catch (NumberParseException e) {
             throw new RuntimeException(e);
         }
-        throw new IllegalArgumentException("Invalid number, please check the number.");
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid phone number, please check the number.");
     }
 
     /**
