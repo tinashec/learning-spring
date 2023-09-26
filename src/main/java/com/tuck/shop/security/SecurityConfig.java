@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * @author Tinashe on 27/8/2023
- * this configuration disables CORS on Spring security. CORS configs are in ../utils/CorsConfig. The
+ * this configuration disables CORS on Spring security. CORS configs are in ../utils/Config. The
  * application.properties file has the actual values read. See:
  * <a href="https://stackoverflow.com/questions/71173132/cors-errors-using-spring-boot-spring-security-and-react">resolve cors error spring security</a>
  */

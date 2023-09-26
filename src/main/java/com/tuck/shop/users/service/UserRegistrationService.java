@@ -3,8 +3,11 @@ package com.tuck.shop.users.service;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import com.tuck.shop.users.dto.UserCreationDTO;
+import com.tuck.shop.users.dto.UserIdDTO;
 import com.tuck.shop.users.entity.Users;
 import com.tuck.shop.users.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,8 +30,12 @@ public class UserRegistrationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Users registerUser(Users user){
-        if (user.getPhoneNumber() == null || user.getPhoneNumber().isEmpty()){
+    private ModelMapper modelMapper = new ModelMapper();
+
+    public UserIdDTO registerUser(UserCreationDTO user){
+        Users createUser = modelMapper.map(user, Users.class);
+        UserIdDTO createdUser;
+        if (user.getPhoneNumber() == null || user.getPhoneNumber().isEmpty() || user.getPassword() == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Phone number/password cannot be empty.");
         }
         if (isPhoneExists(user.getPhoneNumber())){
@@ -40,9 +47,10 @@ public class UserRegistrationService {
             zwNumber = phoneNumberUtil.parse(user.getPhoneNumber(), user.getPhoneNumber().substring(0, 4));
             if (phoneNumberUtil.isValidNumber(zwNumber)){
                 // create the user
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
-                user.setCreated(LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC));
-                return userRepository.save(user);
+                createUser.setPassword(passwordEncoder.encode(user.getPassword()));
+                createUser.setCreated(LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC));
+                createdUser = modelMapper.map(userRepository.save(createUser), UserIdDTO.class);
+                return createdUser;
             }
         } catch (NumberParseException e) {
             throw new RuntimeException(e);

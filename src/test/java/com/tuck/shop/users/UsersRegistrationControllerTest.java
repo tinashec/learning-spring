@@ -2,8 +2,11 @@ package com.tuck.shop.users;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tuck.shop.users.controller.RegistrationController;
+import com.tuck.shop.users.dto.UserCreationDTO;
+import com.tuck.shop.users.dto.UserIdDTO;
 import com.tuck.shop.users.entity.Users;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +31,9 @@ public class UsersRegistrationControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @MockBean
     private RegistrationController registrationController;
 
@@ -40,7 +46,10 @@ public class UsersRegistrationControllerTest {
                 password("1234").
                 build();
 
-        when(registrationController.registerUser(testUser)).thenReturn(testUser);
+        UserCreationDTO creationDTO = modelMapper.map(testUser, UserCreationDTO.class);
+        UserIdDTO createdUserDTO = modelMapper.map(testUser, UserIdDTO.class);
+
+        when(registrationController.registerUser(creationDTO)).thenReturn(createdUserDTO);
         // ToDo: mock such that it returns a JsonObject as part of the body response
 
         mockMvc.perform(MockMvcRequestBuilders.post("/user/register").
@@ -49,4 +58,3 @@ public class UsersRegistrationControllerTest {
                 andExpect(status().isCreated());
     }
 }
-

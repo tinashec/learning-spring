@@ -1,6 +1,8 @@
 package com.tuck.shop.utils;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -11,12 +13,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @EnableWebMvc
-public class CorsConfig implements WebMvcConfigurer {
+public class Config implements WebMvcConfigurer {
 
     private final CorsProp corsProp;
 
     @Autowired
-    public CorsConfig(CorsProp corsProp) {
+    public Config(CorsProp corsProp) {
         this.corsProp = corsProp;
     }
 
@@ -27,5 +29,10 @@ public class CorsConfig implements WebMvcConfigurer {
                 allowedOrigins(corsProp.getAllowedOrigins()).
                 allowedMethods(corsProp.getAllowedMethods()).
                 allowedHeaders(corsProp.getAllowedHeaders());
+    }
+
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
     }
 }

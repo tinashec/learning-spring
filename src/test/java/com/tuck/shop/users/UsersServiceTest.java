@@ -1,11 +1,15 @@
 package com.tuck.shop.users;
 
+import com.tuck.shop.users.dto.UserCreationDTO;
+import com.tuck.shop.users.dto.UserIdDTO;
 import com.tuck.shop.users.entity.Users;
 import com.tuck.shop.users.repository.UserRepository;
 import com.tuck.shop.users.service.UserRegistrationService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -20,6 +24,9 @@ import static org.mockito.Mockito.when;
  */
 @SpringBootTest
 public class UsersServiceTest {
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Mock
     private UserRepository userRepository;
@@ -48,13 +55,16 @@ public class UsersServiceTest {
                 password("1234").
                 build();
 
+        UserCreationDTO createUser = modelMapper.map(user, UserCreationDTO.class);
+        UserIdDTO createdUser;
         // when, act on the data
         when(userRepository.save(any(Users.class))).thenReturn(user);
         when(passwordEncoder.encode(user.getPassword())).thenReturn(user.getPassword());
+//        when(modelMapper.map(any(), any())).thenReturn(user);
 
         // then, assert the outcome of the action
-        Users registeredUser = userRegistrationService.registerUser(user);
-        assertThat(registeredUser.getFirstName(), is(equalTo(user.getFirstName())));
+        createdUser = userRegistrationService.registerUser(createUser);
+        assertThat(createdUser.getFirstName(), is(equalTo(user.getFirstName())));
     }
 
     @Test

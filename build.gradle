@@ -37,6 +37,8 @@ dependencies {
 	testImplementation("org.hamcrest:hamcrest:2.2")
 	// https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber
 	implementation("com.googlecode.libphonenumber:libphonenumber:8.13.19")
+	// https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+	implementation("org.modelmapper:modelmapper:3.1.1")
 }
 
 tasks.named('test') {
