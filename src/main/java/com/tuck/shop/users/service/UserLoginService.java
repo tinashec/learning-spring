@@ -3,8 +3,13 @@ package com.tuck.shop.users.service;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import com.tuck.shop.service.TokenService;
+import com.tuck.shop.users.dto.UserIdDTO;
 import com.tuck.shop.users.entity.Users;
 import com.tuck.shop.users.repository.UserRepository;
+import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,31 +22,48 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 public class UserLoginService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(UserLoginService.class);
+
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public boolean loginUser(Users validUser, String phoneNumberToLogin, String passwordToLogin){
-        boolean isLoggedIn = false;
-        if (getUserByPhone(phoneNumberToLogin) == null){
-            return false;
+    @Autowired
+    private TokenService tokenService;
+
+    @Autowired
+    private ModelMapper mapper;
+
+    public UserIdDTO loginUser(String phoneNumberToLogin, String passwordToLogin){
+        String jwtToken;
+        UserIdDTO loggedInUser;
+        Users validUser = getUserByPhone(phoneNumberToLogin);
+        if (validUser == null){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }
         PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
         Phonenumber.PhoneNumber zwNumber;
         try {
             zwNumber = phoneNumberUtil.parse(phoneNumberToLogin, phoneNumberToLogin.substring(0, 4));
             if (phoneNumberUtil.isValidNumber(zwNumber)) {
-                if (passwordEncoder.matches(passwordToLogin, validUser.getPassword()) && phoneNumberToLogin.equals(validUser.getPhoneNumber()))
-                    isLoggedIn = true;
+                if (passwordEncoder.matches(passwordToLogin, validUser.getPassword()) && phoneNumberToLogin.equals(validUser.getPhoneNumber())) {
+                    // ToDo: generate JWT token and return as part of the response
+                    jwtToken = tokenService.generateToken(validUser);
+                    LOG.info("Token generated: {}", jwtToken);
+                    loggedInUser = mapper.map(validUser, UserIdDTO.class);
+                    loggedInUser.setToken(jwtToken);
+                }else {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
+                }
             } else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid phone number");
             }
         } catch (NumberParseException numberParseException){
             throw new RuntimeException(numberParseException);
         }
-        return isLoggedIn;
+        return loggedInUser;
     }
 
     public Users getUserByPhone(String phoneNumber) {

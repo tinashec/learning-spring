@@ -22,3 +22,9 @@ replace: none
 server:
   error:
     include-stacktrace: NEVER
+security:
+  oauth2:
+    resourceserver:
+      jwt:
+        issuer-uri: http://localhost:8083/auth/realms/tuckshop
+        jwk-set-uri: http://localhost:8083/auth/realms/tuckshop/protocol/openid-connect/certs
