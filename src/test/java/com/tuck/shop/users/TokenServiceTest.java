@@ -19,7 +19,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TokenServiceTest {
 
     private LoginDetailsDto userTologin = new LoginDetailsDto();
-    private UserIdDTO loggedInUser;
     private Users user = new Users();
 
     @Autowired
@@ -39,13 +38,13 @@ public class TokenServiceTest {
         user.setPassword("1234");
         user.setPhoneNumber("+264774666249");
 
+        // when generate token
         String token = tokenService.generateToken(user);
-
-        assertThat("Token is generated", token.startsWith("ey"));
-
+        // then token is generated
+        assertThat("Token is generated", token.startsWith("ey") && token != null);
 
         // when they login
-        loggedInUser = userLoginService.loginUser(userTologin.getPhoneNumber(), userTologin.getPassword());
+        UserIdDTO loggedInUser = userLoginService.loginUser(userTologin.getPhoneNumber(), userTologin.getPassword());
         // then a token should be provided
         assertThat("Token generated is valid.", loggedInUser.getToken() != null);
     }
