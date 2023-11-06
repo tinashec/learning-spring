@@ -41,7 +41,7 @@ public class TokenServiceTest {
         // when generate token
         String token = tokenService.generateToken(user);
         // then token is generated
-        assertThat("Token is generated", token.startsWith("ey") && token != null);
+        assertThat("Token is generated", token.startsWith("ey"));
 
         // when they login
         UserIdDTO loggedInUser = userLoginService.loginUser(userTologin.getPhoneNumber(), userTologin.getPassword());
