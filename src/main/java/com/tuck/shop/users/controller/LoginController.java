@@ -27,7 +27,6 @@ public class LoginController {
     public @ResponseBody UserIdDTO loginUser(@RequestBody LoginDetailsDto detailsDto){
         UserIdDTO validUser;
 
-        boolean isLoggedIn;
         validUser = userLoginService.loginUser(detailsDto.getPhoneNumber(), detailsDto.getPassword());
         return validUser;
     }

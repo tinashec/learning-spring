@@ -1,5 +1,6 @@
 package com.tuck.shop.users;
 
+import com.tuck.shop.service.TokenService;
 import com.tuck.shop.users.dto.UserCreationDTO;
 import com.tuck.shop.users.dto.UserIdDTO;
 import com.tuck.shop.users.entity.Users;
@@ -37,6 +38,9 @@ public class UsersServiceTest {
     @InjectMocks
     private UserRegistrationService userRegistrationService;
 
+    @Mock
+    private TokenService tokenService;
+
     // given, arrange the data
     Users user = Users.builder().
             firstName("Test").
@@ -60,6 +64,7 @@ public class UsersServiceTest {
         // when, act on the data
         when(userRepository.save(any(Users.class))).thenReturn(user);
         when(passwordEncoder.encode(user.getPassword())).thenReturn(user.getPassword());
+        when(tokenService.generateToken(user)).thenReturn("token");
 //        when(modelMapper.map(any(), any())).thenReturn(user);
 
         // then, assert the outcome of the action

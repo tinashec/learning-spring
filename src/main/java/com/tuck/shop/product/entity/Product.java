@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
@@ -11,14 +13,16 @@ import java.math.BigDecimal;
  * @author Tinashe on 21/6/2023
  */
 @Entity
+@Getter @Setter
 public class Product {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    private String name, description, category, productCode;
     private BigDecimal price;
+    private boolean isRefridgerated;
 
     public Product(String name, BigDecimal price){
         this.name = name;
@@ -26,24 +30,4 @@ public class Product {
     }
 
     public Product(){}
-
-    public Integer getId(){
-        return this.id;
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setPrice(String price){
-        this.price = new BigDecimal(price);
-    }
-
-    public BigDecimal getPrice(){
-        return price;
-    }
 }

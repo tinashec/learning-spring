@@ -46,25 +46,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsManager(){
-        return new InMemoryUserDetailsManager(
-                User.withUsername("shark").
-                        password(encoder.encode("password")).
-                        authorities("read").
-                        build()
-        );
-    }
-
-    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.cors(AbstractHttpConfigurer::disable);
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
-        httpSecurity.authorizeHttpRequests(authorise -> authorise.
-                requestMatchers("/user/login", "/user/register").permitAll());
-
+        // list endpoints that require authentication
         httpSecurity.authorizeHttpRequests(authorise -> authorise.
                 requestMatchers("/product/**").authenticated());
+
+        httpSecurity.authorizeHttpRequests(authorise -> authorise.
+                anyRequest().permitAll());
 
         // stateless session management
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

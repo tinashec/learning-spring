@@ -3,6 +3,7 @@ package com.tuck.shop.users.service;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import com.tuck.shop.service.TokenService;
 import com.tuck.shop.users.dto.UserCreationDTO;
 import com.tuck.shop.users.dto.UserIdDTO;
 import com.tuck.shop.users.entity.Users;
@@ -30,6 +31,9 @@ public class UserRegistrationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private TokenService tokenService;
+
     private ModelMapper modelMapper = new ModelMapper();
 
     public UserIdDTO registerUser(UserCreationDTO user){
@@ -50,6 +54,9 @@ public class UserRegistrationService {
                 createUser.setPassword(passwordEncoder.encode(user.getPassword()));
                 createUser.setCreated(LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC));
                 createdUser = modelMapper.map(userRepository.save(createUser), UserIdDTO.class);
+                // user created, authenticate and return the user?
+                if (createdUser != null)
+                    createdUser.setToken(tokenService.generateToken(createUser));
                 return createdUser;
             }
         } catch (NumberParseException e) {

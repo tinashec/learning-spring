@@ -23,6 +23,7 @@ public class TokenService {
         this.jwtEncoder = jwtEncoder;
     }
 
+
     public String generateToken(Users auth){
         Instant now = Instant.now();
 

@@ -36,6 +36,13 @@ public class UserLoginService {
     @Autowired
     private ModelMapper mapper;
 
+    /**
+     * login a user based on the phone number and password. Once authenticated, the response contains user details and
+     * a token used to grant access to authenticated resources
+     * @param phoneNumberToLogin phone number of registered user
+     * @param passwordToLogin password of the registered user
+     * @return @{@link UserIdDTO} details of the logged-in user
+     */
     public UserIdDTO loginUser(String phoneNumberToLogin, String passwordToLogin){
         String jwtToken;
         UserIdDTO loggedInUser;
