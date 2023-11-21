@@ -1,4 +1,4 @@
-package com.tuck.shop.location;
+package com.tuck.shop.store;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

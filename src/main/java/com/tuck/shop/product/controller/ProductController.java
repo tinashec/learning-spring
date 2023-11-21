@@ -26,8 +26,7 @@ public class ProductController {
 
     @PostMapping (path = "/add")
     @ResponseStatus (HttpStatus.CREATED)
-    public @ResponseBody Product addProduct(@RequestParam String name,
-                                          @RequestParam String price){
+    public @ResponseBody Product addProduct(@RequestParam String name, @RequestParam String price){
         Product product = new Product(name, new BigDecimal(price));
         return productRepository.save(product);
     }
