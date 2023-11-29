@@ -52,7 +52,7 @@ public class SecurityConfig {
 
         // list endpoints that require authentication
         httpSecurity.authorizeHttpRequests(authorise -> authorise.
-                requestMatchers("/product/**").authenticated());
+                requestMatchers("/product/**", "/store/**").authenticated());
 
         httpSecurity.authorizeHttpRequests(authorise -> authorise.
                 anyRequest().permitAll());
