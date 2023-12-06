@@ -1,7 +1,7 @@
-package com.tuck.shop.product.controller;
+package com.tuck.shop.add_product.controller;
 
-import com.tuck.shop.product.entity.Product;
-import com.tuck.shop.product.repository.ProductRepository;
+import com.tuck.shop.add_product.entity.Product;
+import com.tuck.shop.add_product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

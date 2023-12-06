@@ -1,4 +1,4 @@
-package com.tuck.shop.product.entity;
+package com.tuck.shop.add_product.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,15 +18,15 @@ public class Product {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer productId;
 
     private String name, description, category, productCode;
-    private BigDecimal price;
+    private BigDecimal sellingPrice, buyingPrice;
     private boolean isRefridgerated;
 
-    public Product(String name, BigDecimal price){
+    public Product(String name, BigDecimal sellingPrice){
         this.name = name;
-        this.price = price;
+        this.sellingPrice = sellingPrice;
     }
 
     public Product(){}

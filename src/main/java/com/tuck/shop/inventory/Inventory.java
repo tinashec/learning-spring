@@ -1,9 +1,7 @@
 package com.tuck.shop.inventory;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.tuck.shop.add_product.entity.Product;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +17,8 @@ public class Inventory {
     private Integer id;
 
     private Integer quantityAvailable, minStockLevel, reorderPoint;
+
+    @ManyToOne
+    @JoinColumn (name = "productId")
+    private Product product;
 }
