@@ -1,5 +1,6 @@
 package com.tuck.shop.add_product.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,8 +8,21 @@ import lombok.Setter;
  * @author Tinashe on 6/12/2023
  */
 @Getter @Setter
+@Builder
 public class ProductInfoDTO {
 
     private String productName, productDescription, productCategory, productCode;
-    private Integer buyingPrice, sellingPrice;
+    private Double buyingPrice, sellingPrice;
+
+    public ProductInfoDTO(){}
+
+    public ProductInfoDTO(String productName, String productDescription, String productCategory, String productCode,
+                          Double buyingPrice, Double sellingPrice){
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.productCategory = productCategory;
+        this.productCode = productCode;
+        this.buyingPrice =buyingPrice;
+        this.sellingPrice = sellingPrice;
+    }
 }

@@ -55,7 +55,7 @@ public class AddProductControllerTest {
 
     @Test
     public void addProductControllerTest() throws Exception {
-        // given (a logged in user)
+        // given (a logged-in user)
         Product newProduct = new Product();
         newProduct.setProductId(1);
         // when they visit the add product endpoint
