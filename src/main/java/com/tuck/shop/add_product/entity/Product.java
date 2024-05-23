@@ -1,9 +1,6 @@
 package com.tuck.shop.add_product.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,9 +17,14 @@ public class Product {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer productId;
 
-    private String name, description, category, productCode;
+    @Column (unique = true)
+    private String productCode;
+
+    private String name, description, category;
     private BigDecimal sellingPrice, buyingPrice;
     private boolean isRefridgerated;
+
+    private int quantity;
 
     public Product(String name, BigDecimal sellingPrice){
         this.name = name;
