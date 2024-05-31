@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Tinashe on 6/12/2023
  */
@@ -11,6 +13,7 @@ import lombok.Setter;
 @Builder
 public class ProductInfoDTO {
 
+    @NotNull (message = "Field cannot be empty or null")
     private String productName, productDescription, productCategory, productCode;
     private Double buyingPrice, sellingPrice;
     private Integer quantity;

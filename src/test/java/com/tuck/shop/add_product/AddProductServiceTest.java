@@ -29,7 +29,7 @@ public class AddProductServiceTest {
          * persist the product (mock this)?
          */
         ProductInfoDTO newProduct = ProductInfoDTO.builder().
-                    productCode("CER12357").
+                    productCode("   ").
                     productCategory("Cereal").
                     productName("Cerevita").
                     productDescription("Nestle Cerevita 500g").

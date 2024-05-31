@@ -2,6 +2,7 @@ package com.tuck.shop.add_product.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -21,6 +22,7 @@ public class Product {
     private String productCode;
 
     private String name, description, category;
+    @NonNull
     private BigDecimal sellingPrice, buyingPrice;
     private boolean isRefridgerated;
 
